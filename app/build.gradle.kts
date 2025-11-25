@@ -1,8 +1,13 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
+
 }
+
 
 android {
     namespace = "com.example.weatherapp"
@@ -48,6 +53,31 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
+
+        // implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+
+    ksp("androidx.room:room-compiler:2.8.4")
+    implementation("androidx.room:room-ktx:2.8.4")
+
+    implementation("com.google.dagger:hilt-android:2.57.1")
+    ksp("com.google.dagger:hilt-compiler:2.57.1")
+
+    implementation("androidx.compose.material3:material3:1.4.0")
+
+
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+
+    implementation("com.arkivanov.decompose:decompose:3.4.0")
+    implementation("com.arkivanov.decompose:extensions-compose:3.4.0")
+    implementation("com.arkivanov.mvikotlin:mvikotlin:4.3.0")
+    implementation("com.arkivanov.mvikotlin:mvikotlin-main:4.3.0")
+    implementation("com.arkivanov.mvikotlin:mvikotlin-extensions-coroutines:4.3.0")
+
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
     testImplementation(libs.junit)

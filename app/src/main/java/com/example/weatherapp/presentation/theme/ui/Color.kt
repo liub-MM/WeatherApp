@@ -1,4 +1,4 @@
-package com.example.weatherapp.ui.theme
+package com.example.weatherapp.presentation.theme.ui
 
 import androidx.compose.ui.graphics.Color
 
