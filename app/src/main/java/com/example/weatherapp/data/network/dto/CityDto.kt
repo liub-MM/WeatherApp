@@ -1,0 +1,10 @@
+package com.example.weatherapp.data.network.dto
+
+import com.google.gson.annotations.SerializedName
+import java.util.Locale
+
+data class CityDto(
+    @SerializedName("id") val id : Int,
+    @SerializedName("name") val name : String,
+    @SerializedName("country") val country : String
+)
