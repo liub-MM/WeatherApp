@@ -5,10 +5,11 @@ import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.arkivanov.mvikotlin.extensions.coroutines.CoroutineExecutor
 import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
+import javax.inject.Inject
 
-class SearchStoreFactory() {
+class SearchStoreFactory @Inject constructor(private val storeFactory: StoreFactory ) {
 
-    private val storeFactory: StoreFactory = DefaultStoreFactory()
+   // private val storeFactory: StoreFactory = DefaultStoreFactory()
 
 
     fun create(): SearchStore = object : SearchStore,

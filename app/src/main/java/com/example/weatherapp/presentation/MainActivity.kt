@@ -8,10 +8,12 @@ import androidx.activity.enableEdgeToEdge
 import com.example.weatherapp.data.network.api.ApiFactory
 import com.example.weatherapp.data.network.api.ApiService
 import com.example.weatherapp.presentation.theme.ui.WeatherAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

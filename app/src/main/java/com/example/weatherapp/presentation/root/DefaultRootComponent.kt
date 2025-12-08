@@ -1,3 +1,5 @@
 package com.example.weatherapp.presentation.root
 
-class DefaultRootComponent : RootComponent
+import dagger.assisted.AssistedInject
+
+class DefaultRootComponent @AssistedInject constructor() : RootComponent

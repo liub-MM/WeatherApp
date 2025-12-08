@@ -1,3 +1,5 @@
 package com.example.weatherapp.presentation.favourite
 
-class DefaultFavouriteComponent : FavouriteComponent
+import dagger.assisted.AssistedInject
+
+class DefaultFavouriteComponent @AssistedInject constructor() : FavouriteComponent

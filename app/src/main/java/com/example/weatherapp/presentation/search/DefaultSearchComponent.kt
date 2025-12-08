@@ -1,3 +1,5 @@
 package com.example.weatherapp.presentation.search
 
-class DefaultSearchComponent : SearchComponent
+import dagger.assisted.AssistedInject
+
+class DefaultSearchComponent @AssistedInject constructor() : SearchComponent

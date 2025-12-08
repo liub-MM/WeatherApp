@@ -1,3 +1,5 @@
 package com.example.weatherapp.presentation.details
 
-class DefaultDetailsComponent : DetailsComponent
+import dagger.assisted.AssistedInject
+
+class DefaultDetailsComponent @AssistedInject constructor() : DetailsComponent
