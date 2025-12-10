@@ -1,9 +1,11 @@
 package com.example.weatherapp.presentation.details
 
+import com.arkivanov.mvikotlin.core.store.Store
 import com.example.weatherapp.domain.entities.City
 import com.example.weatherapp.domain.entities.Forecast
 
-interface DetailsStore {
+interface DetailsStore
+    : Store<DetailsStore.Intent, DetailsStore.State, DetailsStore.Label> {
 
     data class State (
         val city: City,
@@ -24,8 +26,6 @@ interface DetailsStore {
 
     sealed interface Label {
         data object ClickBack : Label
-
-        data object ChangeFavouriteStatus : Label
 
     }
 

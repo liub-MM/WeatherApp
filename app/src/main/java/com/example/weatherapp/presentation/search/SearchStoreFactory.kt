@@ -21,7 +21,7 @@ class SearchStoreFactory @Inject constructor(
 
     fun create(openReason: OpenReason): SearchStore = object : SearchStore,
         Store<SearchStore.Intent, SearchStore.State, SearchStore.Label> by storeFactory.create(
-            name = "AddContactStoreFactory",
+            name = "SearchStoreFactory",
             autoInit = true,
             initialState = SearchStore.State(
                 searchQuery = "",

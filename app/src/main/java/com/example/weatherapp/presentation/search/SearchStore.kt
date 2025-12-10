@@ -1,8 +1,9 @@
 package com.example.weatherapp.presentation.search
 
+import com.arkivanov.mvikotlin.core.store.Store
 import com.example.weatherapp.domain.entities.City
 
-interface SearchStore {
+interface SearchStore : Store<SearchStore.Intent, SearchStore.State, SearchStore.Label> {
 
     data class State (
         val searchQuery : String,

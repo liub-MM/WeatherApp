@@ -1,8 +1,11 @@
 package com.example.weatherapp.presentation.favourite
 
+import com.arkivanov.mvikotlin.core.store.Store
 import com.example.weatherapp.domain.entities.City
 
-interface FavoutiteStore {
+interface FavouriteStore :
+    Store<FavouriteStore.Intent, FavouriteStore.State, FavouriteStore.Label> {
+
 
     data class State(
         val cityItems : List<CityItem>

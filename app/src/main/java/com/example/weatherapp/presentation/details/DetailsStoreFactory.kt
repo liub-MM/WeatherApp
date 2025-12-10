@@ -25,7 +25,7 @@ class DetailsStoreFactory @Inject constructor(
 
     fun create(city: City): DetailsStore = object : DetailsStore,
         Store<DetailsStore.Intent, State, DetailsStore.Label> by storeFactory.create(
-            name = "AddContactStoreFactory",
+            name = "DetailsStoreFactory",
             autoInit = true,
             initialState = State(
                 city = city,
@@ -89,7 +89,6 @@ class DetailsStoreFactory @Inject constructor(
         override fun executeIntent(intent: DetailsStore.Intent) {
             when (intent) {
                 DetailsStore.Intent.ChangeFavouriteStatus -> {
-                    publish(DetailsStore.Label.ChangeFavouriteStatus)
                     val isFavourite = state().isFavourite
                     scope.launch {
                         if (isFavourite) {

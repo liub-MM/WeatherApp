@@ -19,15 +19,16 @@ class FavouriteStoreFactory @Inject constructor(
 ) {
 
 
-    fun create(): FavoutiteStore = object : FavoutiteStore,
-        Store<FavoutiteStore.Intent, FavoutiteStore.State, FavoutiteStore.Label> by storeFactory.create(
-            name = "AddContactStoreFactory",
-            autoInit = true,
-            initialState = FavoutiteStore.State(listOf()),
-            executorFactory = { ExecutorImpl() },
-            bootstrapper = BootstrapperImpl(),
-            reducer = ReducerImpl,
-        ) {}
+    fun create(): FavouriteStore =
+        object : FavouriteStore,
+            Store<FavouriteStore.Intent, FavouriteStore.State, FavouriteStore.Label> by storeFactory.create(
+                name = "FavouriteStore",
+                initialState = FavouriteStore.State(listOf()),
+                bootstrapper = BootstrapperImpl(),
+                executorFactory = ::ExecutorImpl,
+                reducer = ReducerImpl
+            ) {}
+
 
     private sealed interface Action {
 
@@ -51,24 +52,24 @@ class FavouriteStoreFactory @Inject constructor(
 
     private inner class ExecutorImpl :
         CoroutineExecutor<
-                FavoutiteStore.Intent,
+                FavouriteStore.Intent,
                 Action,
-                FavoutiteStore.State,
+                FavouriteStore.State,
                 Msg,
-                FavoutiteStore.Label
+                FavouriteStore.Label
                 >() {
 
-        override fun executeIntent(intent: FavoutiteStore.Intent) {
+        override fun executeIntent(intent: FavouriteStore.Intent) {
 
             when(intent){
-                is FavoutiteStore.Intent.CityItemClicked -> {
-                    publish(FavoutiteStore.Label.CityItemClicked(intent.city))
+                is FavouriteStore.Intent.CityItemClicked -> {
+                    publish(FavouriteStore.Label.CityItemClicked(intent.city))
                 }
-                FavoutiteStore.Intent.ClickToFavourite -> {
-                    publish(FavoutiteStore.Label.ClickToFavourite)
+                FavouriteStore.Intent.ClickToFavourite -> {
+                    publish(FavouriteStore.Label.ClickToFavourite)
                 }
-                FavoutiteStore.Intent.SearchClick ->{
-                    publish(FavoutiteStore.Label.SearchClick)
+                FavouriteStore.Intent.SearchClick ->{
+                    publish(FavouriteStore.Label.SearchClick)
                 }
             }
         }
@@ -114,15 +115,15 @@ class FavouriteStoreFactory @Inject constructor(
         }
     }
 
-    private object ReducerImpl : Reducer<FavoutiteStore.State, Msg> {
-        override fun FavoutiteStore.State.reduce(msg: Msg): FavoutiteStore.State {
+    private object ReducerImpl : Reducer<FavouriteStore.State, Msg> {
+        override fun FavouriteStore.State.reduce(msg: Msg): FavouriteStore.State {
             return when(msg){
                 is Msg.FavouriteCitiesLoaded -> {
                     copy(
                         cityItems = msg.cities.map {
-                            FavoutiteStore.State.CityItem(
+                            FavouriteStore.State.CityItem(
                                 city = it,
-                                weatherState = FavoutiteStore.State.WeatherState.Initial
+                                weatherState = FavouriteStore.State.WeatherState.Initial
                             )
                         }
                     )
@@ -131,7 +132,7 @@ class FavouriteStoreFactory @Inject constructor(
                     copy(
                         cityItems = cityItems.map {
                             if (it.city.id == msg.cityId){
-                                it.copy(weatherState = FavoutiteStore.State.WeatherState.Loading)
+                                it.copy(weatherState = FavouriteStore.State.WeatherState.Loading)
                             }else {
                                 it
                             }
@@ -142,7 +143,7 @@ class FavouriteStoreFactory @Inject constructor(
                     copy(
                         cityItems = cityItems.map {
                             if (it.city.id == msg.id){
-                                it.copy(weatherState = FavoutiteStore.State.WeatherState.Loaded(
+                                it.copy(weatherState = FavouriteStore.State.WeatherState.Loaded(
                                     tempC =msg.tempC,
                                     icon = msg.conditionUrl))
                             }else {
@@ -154,7 +155,7 @@ class FavouriteStoreFactory @Inject constructor(
                 is Msg.WeatherLoadingError -> copy(
                     cityItems = cityItems.map {
                         if (it.city.id == msg.cityId){
-                            it.copy(weatherState = FavoutiteStore.State.WeatherState.Error)
+                            it.copy(weatherState = FavouriteStore.State.WeatherState.Error)
                         }else {
                             it
                         }
