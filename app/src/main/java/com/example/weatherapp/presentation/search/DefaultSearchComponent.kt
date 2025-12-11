@@ -7,18 +7,20 @@ import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
 import com.example.weatherapp.domain.entities.City
 import com.example.weatherapp.presentation.details.DetailsComponent
 import com.example.weatherapp.presentation.extensions.scope
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import jakarta.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class DefaultSearchComponent @Inject constructor(
-    componentComponent: ComponentContext,
-    private val openReason: OpenReason,
-    private val onBackClick : () -> Unit,
-    private val onOpenForecast : (City) -> Unit,
-    private val onSavedToFavourite : () -> Unit,
+class DefaultSearchComponent @AssistedInject constructor(
+    @Assisted("componentComponent") componentComponent: ComponentContext,
+    @Assisted("openReason") private val openReason: OpenReason,
+    @Assisted("onBackClick") private val onBackClick : () -> Unit,
+    @Assisted("onOpenForecast") private val onOpenForecast : (City) -> Unit,
+    @Assisted("onSavedToFavourite") private val onSavedToFavourite : () -> Unit,
     private val searchStoreFactory: SearchStoreFactory
 ) : SearchComponent, ComponentContext by componentComponent {
 
@@ -54,5 +56,16 @@ class DefaultSearchComponent @Inject constructor(
 
     override fun onClickCity(city: City) {
         store.accept(SearchStore.Intent.ClickCity(city))
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(
+            @Assisted("componentComponent") componentComponent: ComponentContext,
+            @Assisted("openReason")  openReason: OpenReason,
+            @Assisted("onBackClick") onBackClick : () -> Unit,
+            @Assisted("onOpenForecast") onOpenForecast : (City) -> Unit,
+            @Assisted("onSavedToFavourite") onSavedToFavourite : () -> Unit,
+        ): DefaultSearchComponent
     }
 }
