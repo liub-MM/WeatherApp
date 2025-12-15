@@ -1,5 +1,6 @@
 package com.example.weatherapp.presentation.details
 
+import android.util.Log
 import com.arkivanov.mvikotlin.core.store.Reducer
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
@@ -123,6 +124,7 @@ class DetailsStoreFactory @Inject constructor(
                     dispatch(Action.ForecastLoaded(forecast))
 
                 } catch (e: Exception) {
+                    Log.e("DetailsStore", "Error loading forecast", e)
                     dispatch(Action.ForecastLoadingError)
                 }
 
