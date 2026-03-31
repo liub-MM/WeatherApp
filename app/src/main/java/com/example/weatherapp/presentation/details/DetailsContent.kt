@@ -1,6 +1,5 @@
 package com.example.weatherapp.presentation.details
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.tween
@@ -19,7 +18,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarBorder
 import androidx.compose.material3.Card
@@ -51,6 +50,7 @@ import com.example.weatherapp.presentation.extensions.formattedFullDate
 import com.example.weatherapp.presentation.extensions.formattedShortDayOfWeek
 import com.example.weatherapp.presentation.extensions.tempToFormattedString
 import com.example.weatherapp.presentation.theme.ui.CardGradients
+
 @Composable
 fun DetailsContent(component: DetailsComponent) {
     val state by component.model.collectAsState()
@@ -109,7 +109,7 @@ private fun TopBar(
         navigationIcon = {
             IconButton(onClick = { onBackClick() }) {
                 Icon(
-                    imageVector = Icons.Default.ArrowBack,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.background
                 )

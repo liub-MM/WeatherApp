@@ -27,6 +27,7 @@ class DefaultFavouriteComponent @AssistedInject constructor(
         favouriteStoreFactory.create()
     }
 
+
     @OptIn(ExperimentalCoroutinesApi::class)
     override val model: StateFlow<FavouriteStore.State> = store.stateFlow
 

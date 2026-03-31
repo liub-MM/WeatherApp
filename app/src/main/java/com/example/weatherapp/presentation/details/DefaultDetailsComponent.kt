@@ -22,6 +22,8 @@ class DefaultDetailsComponent @AssistedInject constructor(
     @Assisted("componentContext") componentContext: ComponentContext
 ) : DetailsComponent, ComponentContext by componentContext {
 
+
+
     private val store = instanceKeeper.getStore(key = city.id) { detailsStoreFactory.create(city) }
 
     init {

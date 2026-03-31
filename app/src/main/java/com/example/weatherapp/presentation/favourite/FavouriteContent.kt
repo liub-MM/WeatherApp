@@ -39,6 +39,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.example.weatherapp.presentation.extensions.tempToFormattedString
 import com.example.weatherapp.presentation.theme.ui.CardGradients
@@ -47,10 +48,11 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.example.weatherapp.presentation.theme.ui.Orange
 
 
+
 @Composable
 fun FavouriteContent(component: FavouriteComponent) {
 
-    val state by component.model.collectAsState()
+    val state by component.model.collectAsStateWithLifecycle()
 
     LazyVerticalGrid(
         modifier = Modifier.fillMaxSize(),
@@ -79,6 +81,7 @@ fun FavouriteContent(component: FavouriteComponent) {
                 onClick = { component.onClickAddToFavourite() }
             )
         }
+
     }
 }
 
