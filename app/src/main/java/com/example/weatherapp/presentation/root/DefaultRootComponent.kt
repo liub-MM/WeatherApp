@@ -10,6 +10,7 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.example.weatherapp.domain.entities.City
+import com.example.weatherapp.presentation.auth.DefaultAuthComponent
 import com.example.weatherapp.presentation.details.DefaultDetailsComponent
 import com.example.weatherapp.presentation.favourite.DefaultFavouriteComponent
 import com.example.weatherapp.presentation.search.DefaultSearchComponent
@@ -21,11 +22,13 @@ import jakarta.inject.Inject
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.serializer
+import com.arkivanov.decompose.router.stack.replaceCurrent
 
 class DefaultRootComponent @AssistedInject constructor(
     private val detailsComponentFactory: DefaultDetailsComponent.Factory,
     private val searchComponentFactory: DefaultSearchComponent.Factory,
     private val favouriteComponentFactory: DefaultFavouriteComponent.Factory,
+    private val authComponentFactory: DefaultAuthComponent.Factory,
     @Assisted("componentContext") componentContext: ComponentContext
 ) : RootComponent, ComponentContext by componentContext {
 
@@ -34,7 +37,7 @@ class DefaultRootComponent @AssistedInject constructor(
     override val stack: Value<ChildStack<*, RootComponent.Child>> = childStack(
         source = navigation,
         serializer = Config.serializer(),
-        initialConfiguration = Config.Favourite,
+        initialConfiguration = Config.Auth,
         childFactory = ::child,
         handleBackButton = true
     )
@@ -45,6 +48,15 @@ class DefaultRootComponent @AssistedInject constructor(
         componentContext: ComponentContext
     ): RootComponent.Child {
         return when (config) {
+            is Config.Auth ->{
+                val component = authComponentFactory.create(
+                    onAuthSuccess = {
+                        navigation.replaceCurrent(Config.Favourite)
+                    },
+                    componentContext = componentContext
+                )
+                RootComponent.Child.Auth(component)
+            }
             is Config.Details -> {
                 val component = detailsComponentFactory.create(
                     city = config.city,
@@ -98,7 +110,7 @@ class DefaultRootComponent @AssistedInject constructor(
     @Serializable
     sealed interface Config : Parcelable {
 
-
+        @Parcelize data object Auth : Config
         @Parcelize
         data object Favourite : Config
 
